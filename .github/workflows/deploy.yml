@@ -1,0 +1,23 @@
+name: Deploy to EC2
+
+on:
+  workflow_run: 
+    workflows: ["Build and push Docker image"]
+    types:
+      - completed
+
+jobs:
+  deploy: 
+    runs-on:  Ububtu-latest
+
+    steps: 
+      - name: SSH and deploy
+        uses: appleboy/ssh-action@v1.0.3
+        with :
+          host: ${{ secrets.EC2-HOST }} 
+          username: ec2-user
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+              docker stop weather_app ||true
+              docker run weather_app ||truedocker pull ${{ secrets.DOCLER_USERNAME }}/weather-advisor:latest
+              docker run -d -p5000:5000 --name weather-app \${{ secrets.WEATHER_API_KEY }} \${{ secrets.DOCKER_USERNAME }}/weather-advisor:latest
