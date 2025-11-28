@@ -3,8 +3,8 @@ provider "aws" {
 }
 
 resource "aws_key_pair" "dev_key" {
-    key_name="devops-key"
-    public_key=file("~/.ssh/id_rsa.pub")
+    key_name = "devops-key"
+    public_key = file("mykey.pub")
 }
 
 resource "aws_security_group" "flask_sg" {
