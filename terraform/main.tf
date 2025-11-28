@@ -1,5 +1,5 @@
 provider "aws" {
-    region="ap-south-1"
+    region = "ap-south-1"
 }
 
 resource "aws_key_pair" "dev_key" {
@@ -51,7 +51,7 @@ resource "aws_instance" "flask_server" {
     EOF
 
     tags = {
-        Name="WeatherAdvisorServer"
+        Name = "WeatherAdvisorServer"
     }
 } 
 
