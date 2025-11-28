@@ -37,7 +37,7 @@ resource "aws_instance" "flask_server" {
     ami = "ami-0d176f79571d18a8f"   
     instance_type = "t2.micro"
     key_name=aws_key_pair.dev_key.key_name
-    aws_security_group=[aws_security_group.flask_sg.name]
+    vpc_security_group_ids = [aws_security_group.flask_sg.name]
     
     user_data= <<-EOF
     #!/bin/bash
