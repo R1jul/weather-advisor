@@ -37,15 +37,16 @@ resource "aws_instance" "flask_server" {
     ami = "ami-0d176f79571d18a8f"   
     instance_type = "t2.micro"
     key_name=aws_key_pair.dev_key.key_name
-    vpc_security_group_ids = [aws_security_group.flask_sg.name]
+    vpc_security_group_ids = [aws_security_group.flask_sg.id]
     
     user_data= <<-EOF
     #!/bin/bash
     yum update -y
     yum install docker -y
     service docker start
-    docker run -d -p5000:5000 --name weather_app\
-    -e WEATHER_API_KEY=${var.weather_api_key}${var.docker_image}
+    usermod -aG docker ec2-user
+    docker pull ${var.docker_image}
+    docker run -d -p5000:5000 --name weather_app -e WEATHER_API_KEY=${var.weather_api_key} ${var.docker_image}
 
 
     EOF

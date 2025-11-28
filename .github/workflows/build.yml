@@ -19,8 +19,8 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build and push Image
+      - name: Build and push image
         run: |
-          docker build -t ${{secrets.DOCKER_USERNAME }}/weather-advisor:latest ./app
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/weather-advisor:latest ./app
           docker push ${{ secrets.DOCKER_USERNAME }}/weather-advisor:latest 
-          
+
