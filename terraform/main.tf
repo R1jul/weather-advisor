@@ -8,8 +8,8 @@ resource "aws_key_pair" "dev_key" {
 }
 
 resource "aws_security_group" "flask_sg" {
-    name_prefix="weather_sg"
-    description="Allow Flask and SSH"
+    name_prefix = "weather_sg"
+    description = "Allow Flask and SSH"
 
     ingress {
         from_port = 5000
@@ -34,8 +34,8 @@ resource "aws_security_group" "flask_sg" {
 } 
 
 resource "aws_instance" "flask_server" {
-    ami="ami-11111111111111111"   #Amazon Linux 2
-    instance_type="t2.micro"
+    ami = "ami-0d176f79571d18a8f"   
+    instance_type = "t2.micro"
     key_name=aws_key_pair.dev_key.key_name
     aws_security_group=[aws_security_group.flask_sg.name]
     
